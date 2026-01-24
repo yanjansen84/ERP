@@ -266,7 +266,7 @@ const ClientForm: React.FC<ClientFormProps> = ({ isOpen, onClose, clientData }) 
                         <div className="h-full flex flex-col gap-4">
                             {/* Filtros Movimentacao */}
                             <div className="flex gap-3 bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
-                                <div className="flex-1">
+                                <div className="w-72">
                                     <DateRangeInput placeholder="Filtrar por período" />
                                 </div>
                                 <div className="relative w-48">
@@ -292,7 +292,7 @@ const ClientForm: React.FC<ClientFormProps> = ({ isOpen, onClose, clientData }) 
                                 <div className="w-64">
                                     <DateRangeInput placeholder="Período de Compra" />
                                 </div>
-                                <div className="relative flex-1">
+                                <div className="relative w-96">
                                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
                                     <input type="text" placeholder="Buscar produto por nome..." className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-md text-sm focus:outline-none focus:border-blue-500" />
                                 </div>
@@ -323,7 +323,7 @@ const ClientForm: React.FC<ClientFormProps> = ({ isOpen, onClose, clientData }) 
 
                             {/* Filtros Financeiro */}
                             <div className="flex gap-3 bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
-                                <div className="flex-1">
+                                <div className="w-72">
                                     <DateRangeInput placeholder="Período do Extrato" />
                                 </div>
                                 <div className="relative w-48">
