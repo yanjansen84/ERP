@@ -1,0 +1,6 @@
+
+{
+  "name": "Painel de Gestão ERP",
+  "description": "Um painel de gestão de alta fidelidade com acompanhamento de tarefas, gestão de RH, métricas de produtividade e agendamento inteligente usando a API Gemini.",
+  "requestFramePermissions": []
+}

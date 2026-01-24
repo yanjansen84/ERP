@@ -1,0 +1,101 @@
+
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Sidebar from './components/Sidebar';
+import Header from './components/Header';
+import StatsCards from './components/StatsCards';
+import TaskList from './components/TaskList';
+import FocusCalendar from './components/FocusCalendar';
+import WeeklyPlan from './components/WeeklyPlan';
+import TaskDiagram from './components/TaskDiagram';
+import TaskFolders from './components/TaskFolders';
+import MonthlyProductivity from './components/MonthlyProductivity';
+
+// Componente para a Dashboard (Conteúdo atual)
+const Dashboard: React.FC = () => {
+  const [activeTab, setActiveTab] = useState('Gestão de Tarefas');
+  const tabs = ['Gestão de Tarefas', 'Recursos Humanos', 'Finanças e Contratos', 'Almoxarifado', 'LMS', 'CRM'];
+
+  return (
+    <div className="flex-1 overflow-y-auto p-6 space-y-6">
+      {/* Sub Navegação */}
+      <div className="flex items-center justify-between">
+        <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap border ${activeTab === tab
+                ? 'bg-white border-blue-500 text-blue-600 shadow-sm'
+                : 'bg-white border-slate-200 text-slate-400 hover:border-blue-300'
+                }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+
+        {/* Perfil movido para Header ou simplificado aqui se necessário, mas mantendo hidden lg:flex por compatibilidade visual imediata */}
+        <div className="hidden lg:flex items-center gap-3 bg-white px-3 py-1.5 border border-slate-100 rounded-lg shadow-sm cursor-pointer hover:bg-slate-50 transition-colors">
+          <img
+            src="https://picsum.photos/seed/linda-avatar/40/40"
+            alt="Linda"
+            className="w-5 h-5 rounded-full"
+          />
+          <span className="text-xs font-bold text-slate-600">Linda Bacon</span>
+          <span className="material-icons-round text-slate-400 text-sm">keyboard_arrow_down</span>
+        </div>
+      </div>
+
+      <StatsCards />
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <TaskList />
+        <FocusCalendar />
+        <WeeklyPlan />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pb-6">
+        <TaskDiagram />
+        <TaskFolders />
+        <MonthlyProductivity />
+      </div>
+    </div>
+  );
+};
+
+// Componente Placeholder para Cadastros
+const Cadastros: React.FC = () => {
+  return (
+    <div className="flex-1 p-6">
+      <h2 className="text-2xl font-bold text-slate-800 mb-4">Cadastros</h2>
+      <p className="text-slate-500">Selecione uma opção no menu lateral.</p>
+    </div>
+  );
+};
+
+import ClientList from './src/pages/clients/ClientList';
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      <div className="flex h-screen overflow-hidden bg-[#F9FAFB]">
+        <Sidebar />
+
+        <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
+          <Header />
+
+          <Routes>
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/cadastros/clientes" element={<ClientList />} />
+            <Route path="/cadastros" element={<Cadastros />} />
+            {/* Rotas futuras */}
+          </Routes>
+        </main>
+      </div>
+    </Router>
+  );
+};
+
+export default App;
