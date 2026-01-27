@@ -74,7 +74,27 @@ const Cadastros: React.FC = () => {
   );
 };
 
+// Cadastros
 import ClientList from './src/pages/clients/ClientList';
+import SupplierList from './src/pages/suppliers/SupplierList';
+import TransportadoraList from './src/pages/cadastros/TransportadoraList';
+
+// PDV
+import Orcamento from './src/pages/pdv/Orcamento';
+import Pedido from './src/pages/pdv/Pedido';
+
+// Estoque
+import Produtos from './src/pages/estoque/Produtos';
+import PedidoFornecedor from './src/pages/estoque/PedidoFornecedor';
+import Ressuprimento from './src/pages/estoque/Ressuprimento';
+import EntradaNF from './src/pages/estoque/EntradaNF';
+import DevolucaoPedido from './src/pages/estoque/DevolucaoPedido';
+import AjusteEstoque from './src/pages/estoque/AjusteEstoque';
+
+// Outros módulos
+import Financeiro from './src/pages/financeiro/Financeiro';
+import Fiscal from './src/pages/fiscal/Fiscal';
+import Relatorios from './src/pages/relatorios/Relatorios';
 
 const App: React.FC = () => {
   return (
@@ -88,9 +108,33 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
+
+            {/* PDV */}
+            <Route path="/pdv/orcamento" element={<Orcamento />} />
+            <Route path="/pdv/pedido" element={<Pedido />} />
+
+            {/* Cadastros */}
             <Route path="/cadastros/clientes" element={<ClientList />} />
+            <Route path="/cadastros/fornecedores" element={<SupplierList />} />
+            <Route path="/cadastros/transportadora" element={<TransportadoraList />} />
             <Route path="/cadastros" element={<Cadastros />} />
-            {/* Rotas futuras */}
+
+            {/* Estoque */}
+            <Route path="/estoque/produtos" element={<Produtos />} />
+            <Route path="/estoque/pedido-ao-fornecedor" element={<PedidoFornecedor />} />
+            <Route path="/estoque/ressuprimento" element={<Ressuprimento />} />
+            <Route path="/estoque/entrada-de-nf" element={<EntradaNF />} />
+            <Route path="/estoque/devolucao-de-pedido" element={<DevolucaoPedido />} />
+            <Route path="/estoque/ajuste-de-estoque" element={<AjusteEstoque />} />
+
+            {/* Financeiro */}
+            <Route path="/financeiro" element={<Financeiro />} />
+
+            {/* Fiscal */}
+            <Route path="/fiscal" element={<Fiscal />} />
+
+            {/* Relatórios */}
+            <Route path="/relatorios" element={<Relatorios />} />
           </Routes>
         </main>
       </div>

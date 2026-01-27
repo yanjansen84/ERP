@@ -16,28 +16,42 @@ const Sidebar: React.FC = () => {
   const [hoveredMenu, setHoveredMenu] = useState<number | null>(null);
 
   const menuItems: MenuItem[] = [
-    { icon: 'home', path: '/dashboard', label: 'Dashboard' },
+    { icon: 'dashboard', path: '/dashboard', label: 'Dashboard' },
     {
-      icon: 'app_registration', // Ícone de cadastro atualizado
+      icon: 'point_of_sale',
+      path: '/pdv',
+      label: 'PDV',
+      subItems: [
+        'Orçamento',
+        'Pedido'
+      ]
+    },
+    {
+      icon: 'app_registration',
       path: '/cadastros',
       label: 'Cadastros',
       subItems: [
         'Clientes',
         'Fornecedores',
-        'Produtos',
-        'Serviços',
-        'Funcionários',
-        'Usuários do Sistema',
-        'Centros de Custo',
-        'Categorias'
+        'Transportadora'
       ]
     },
-    { icon: 'calendar_today', path: '/agenda', label: 'Agenda' },
-    { icon: 'inventory_2', path: '/estoque', label: 'Estoque' },
-    { icon: 'bar_chart', path: '/relatorios', label: 'Relatórios' },
-    { icon: 'description', path: '/docs', label: 'Documentos' },
-    { icon: 'school', path: '/lms', label: 'Treinamento' },
-    { icon: 'verified_user', path: '/admin', label: 'Admin' },
+    {
+      icon: 'inventory_2',
+      path: '/estoque',
+      label: 'Estoque',
+      subItems: [
+        'Produtos',
+        'Pedido ao Fornecedor',
+        'Ressuprimento',
+        'Entrada de NF',
+        'Devolução de Pedido',
+        'Ajuste de Estoque'
+      ]
+    },
+    { icon: 'account_balance', path: '/financeiro', label: 'Financeiro' },
+    { icon: 'receipt_long', path: '/fiscal', label: 'Fiscal' },
+    { icon: 'assessment', path: '/relatorios', label: 'Relatórios' },
   ];
 
   const handleNavigation = (item: MenuItem) => {
