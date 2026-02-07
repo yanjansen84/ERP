@@ -20,7 +20,8 @@ const ClientList: React.FC = () => {
     }
 
     const columns: Column<typeof clients[0]>[] = [
-        { key: 'name', title: 'Cliente / Razão Social', width: '30%' },
+        { key: 'id', title: 'Cód.', width: '10%', render: (val) => val.toString().padStart(4, '0') },
+        { key: 'name', title: 'Cliente / Razão Social', width: '25%' },
         { key: 'doc', title: 'CPF / CNPJ', width: '20%' },
         { key: 'type', title: 'Tipo', width: '15%' },
         { key: 'city', title: 'Cidade/UF', width: '20%' },

@@ -2,7 +2,16 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
+import { format, addMonths, subMonths } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+import { useState } from 'react';
+
 const MonthlyProductivity: React.FC = () => {
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  const handlePrevMonth = () => setCurrentDate(subMonths(currentDate, 1));
+  const handleNextMonth = () => setCurrentDate(addMonths(currentDate, 1));
+
   const data = [
     { value: 65, color: '#10B981' },
     { value: 35, color: '#F1F5F9' },
@@ -13,11 +22,13 @@ const MonthlyProductivity: React.FC = () => {
       <div className="flex items-center justify-between mb-6">
         <h3 className="font-bold text-slate-800 text-sm">Produtividade mensal</h3>
         <div className="flex items-center gap-1.5">
-          <button className="p-0.5 text-slate-300 hover:text-slate-500">
+          <button onClick={handlePrevMonth} className="p-0.5 text-slate-300 hover:text-slate-500">
             <span className="material-icons-round text-lg">chevron_left</span>
           </button>
-          <span className="text-[10px] font-bold text-slate-400 uppercase">Setembro</span>
-          <button className="p-0.5 text-slate-300 hover:text-slate-500">
+          <span className="text-[10px] font-bold text-slate-400 uppercase min-w-[60px] text-center">
+            {format(currentDate, 'MMMM', { locale: ptBR })}
+          </span>
+          <button onClick={handleNextMonth} className="p-0.5 text-slate-300 hover:text-slate-500">
             <span className="material-icons-round text-lg">chevron_right</span>
           </button>
           <button className="text-slate-300 ml-1">

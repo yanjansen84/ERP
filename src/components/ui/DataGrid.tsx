@@ -6,6 +6,7 @@ export interface Column<T> {
     title: string;
     width?: string;
     render?: (value: any, item: T) => React.ReactNode;
+    sortable?: boolean;
 }
 
 interface DataGridProps<T> {
@@ -25,7 +26,10 @@ export function DataGrid<T extends { id: any }>({ columns, data, onEdit, onDelet
                         <tr>
                             {columns.map((col) => (
                                 <th key={String(col.key)} className="px-4 py-3 whitespace-nowrap" style={{ width: col.width }}>
-                                    {col.title}
+                                    <div className="flex items-center justify-between gap-2 group/header cursor-pointer hover:bg-slate-100 p-1 -ml-1 rounded">
+                                        <span>{col.title}</span>
+                                        <Filter size={12} className="text-slate-300 group-hover/header:text-slate-500" />
+                                    </div>
                                 </th>
                             ))}
                             <th className="px-4 py-3 text-right" style={{ width: '80px' }}>Ações</th>

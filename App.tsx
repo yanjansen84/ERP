@@ -35,16 +35,6 @@ const Dashboard: React.FC = () => {
           ))}
         </div>
 
-        {/* Perfil movido para Header ou simplificado aqui se necessário, mas mantendo hidden lg:flex por compatibilidade visual imediata */}
-        <div className="hidden lg:flex items-center gap-3 bg-white px-3 py-1.5 border border-slate-100 rounded-lg shadow-sm cursor-pointer hover:bg-slate-50 transition-colors">
-          <img
-            src="https://picsum.photos/seed/linda-avatar/40/40"
-            alt="Linda"
-            className="w-5 h-5 rounded-full"
-          />
-          <span className="text-xs font-bold text-slate-600">Linda Bacon</span>
-          <span className="material-icons-round text-slate-400 text-sm">keyboard_arrow_down</span>
-        </div>
       </div>
 
       <StatsCards />
@@ -78,6 +68,9 @@ const Cadastros: React.FC = () => {
 import ClientList from './src/pages/clients/ClientList';
 import SupplierList from './src/pages/suppliers/SupplierList';
 import TransportadoraList from './src/pages/cadastros/TransportadoraList';
+import Marcas from './src/pages/cadastros/Marcas';
+import Grupos from './src/pages/cadastros/Grupos';
+import Subgrupo from './src/pages/cadastros/Subgrupo';
 
 // PDV
 import Orcamento from './src/pages/pdv/Orcamento';
@@ -85,7 +78,7 @@ import Pedido from './src/pages/pdv/Pedido';
 
 // Estoque
 import Produtos from './src/pages/estoque/Produtos';
-import PedidoFornecedor from './src/pages/estoque/PedidoFornecedor';
+import PedidoFornecedorList from './src/pages/estoque/PedidoFornecedorList';
 import Ressuprimento from './src/pages/estoque/Ressuprimento';
 import EntradaNF from './src/pages/estoque/EntradaNF';
 import DevolucaoPedido from './src/pages/estoque/DevolucaoPedido';
@@ -117,11 +110,14 @@ const App: React.FC = () => {
             <Route path="/cadastros/clientes" element={<ClientList />} />
             <Route path="/cadastros/fornecedores" element={<SupplierList />} />
             <Route path="/cadastros/transportadora" element={<TransportadoraList />} />
+            <Route path="/cadastros/marcas" element={<Marcas />} />
+            <Route path="/cadastros/grupos" element={<Grupos />} />
+            <Route path="/cadastros/subgrupo" element={<Subgrupo />} />
             <Route path="/cadastros" element={<Cadastros />} />
 
             {/* Estoque */}
             <Route path="/estoque/produtos" element={<Produtos />} />
-            <Route path="/estoque/pedido-ao-fornecedor" element={<PedidoFornecedor />} />
+            <Route path="/estoque/pedido-ao-fornecedor" element={<PedidoFornecedorList />} />
             <Route path="/estoque/ressuprimento" element={<Ressuprimento />} />
             <Route path="/estoque/entrada-de-nf" element={<EntradaNF />} />
             <Route path="/estoque/devolucao-de-pedido" element={<DevolucaoPedido />} />

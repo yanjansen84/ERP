@@ -33,7 +33,10 @@ const Sidebar: React.FC = () => {
       subItems: [
         'Clientes',
         'Fornecedores',
-        'Transportadora'
+        'Transportadora',
+        'Marcas',
+        'Grupos',
+        'Subgrupo'
       ]
     },
     {
@@ -108,7 +111,7 @@ const Sidebar: React.FC = () => {
                         const path = sub.toLowerCase()
                           .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Remove acentos
                           .replace(/ /g, "-");
-                        navigate(`/cadastros/${path}`);
+                        navigate(`${item.path}/${path}`);
                         setHoveredMenu(null);
                       }}
                     >

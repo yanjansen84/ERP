@@ -66,7 +66,8 @@ export default function SupplierList() {
         width?: string;
         render?: (value: any, item: Supplier) => React.ReactNode;
     }> = [
-            { key: 'name', title: 'Nome', sortable: true },
+            { key: 'id', title: 'Cód.', width: '10%', render: (value: number) => value.toString().padStart(4, '0') },
+            { key: 'name', title: 'Razão Social', sortable: true, width: '25%' },
             { key: 'cnpj', title: 'CNPJ', sortable: true },
             { key: 'category', title: 'Categoria', sortable: true },
             { key: 'contact', title: 'Contato', sortable: false },

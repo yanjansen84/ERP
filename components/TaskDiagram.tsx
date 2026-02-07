@@ -2,17 +2,20 @@
 import React from 'react';
 import { BarChart, Bar, ResponsiveContainer, XAxis, Tooltip, Cell, CartesianGrid } from 'recharts';
 
+import { format, subDays, isToday, isSameDay } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+
 const TaskDiagram: React.FC = () => {
-  const data = [
-    { name: '30 Ago', value: 2, display: '30 Ago' },
-    { name: '1 Set', value: 8, display: '' },
-    { name: '2 Set', value: 16, display: '2 Set' },
-    { name: '3 Set', value: 12, display: '' },
-    { name: '4 Set', value: 18, highlight: true, display: '' },
-    { name: '5 Set', value: 10, display: '5 Set' },
-    { name: '6 Set', value: 0, display: '' },
-    { name: 'Hoje', value: 5, display: 'Hoje' },
-  ];
+  const data = Array.from({ length: 15 }).map((_, i) => {
+    const date = subDays(new Date(), 14 - i);
+    return {
+      name: format(date, 'd MMM', { locale: ptBR }),
+      value: Math.floor(Math.random() * 20), // Mock value for now
+      display: format(date, 'd MMM', { locale: ptBR }),
+      fullDate: date,
+      highlight: isToday(date) || isSameDay(date, subDays(new Date(), 2)) // Example highlight logic
+    };
+  });
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 flex flex-col h-[350px]">
@@ -41,13 +44,14 @@ const TaskDiagram: React.FC = () => {
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 20, right: 10, left: 10, bottom: 0 }}>
             <CartesianGrid vertical={false} stroke="#F1F5F9" strokeDasharray="3 3" />
-            <Tooltip 
+            <Tooltip
               cursor={{ fill: 'transparent' }}
               content={({ active, payload }) => {
                 if (active && payload && payload.length && payload[0].payload.highlight) {
+                  const data = payload[0].payload;
                   return (
                     <div className="bg-red-500 text-[10px] text-white font-bold px-2 py-1 rounded shadow-lg relative -top-8">
-                      18 <br/> 4 Set
+                      {data.value} <br /> {data.display}
                       <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-red-500 rotate-45"></div>
                     </div>
                   );
@@ -58,17 +62,17 @@ const TaskDiagram: React.FC = () => {
             />
             <Bar dataKey="value" radius={[4, 4, 0, 0]} barSize={16}>
               {data.map((entry, index) => (
-                <Cell 
-                  key={`cell-${index}`} 
-                  fill={entry.highlight ? '#4F46E5' : '#3B82F6'} 
-                  fillOpacity={entry.name === '30 Ago' || entry.name === '6 Set' ? 0.3 : 1}
+                <Cell
+                  key={`cell-${index}`}
+                  fill={entry.highlight ? '#4F46E5' : '#3B82F6'}
+                  fillOpacity={index % 7 === 0 ? 0.3 : 1}
                 />
               ))}
             </Bar>
-            <XAxis 
-              dataKey="display" 
-              axisLine={false} 
-              tickLine={false} 
+            <XAxis
+              dataKey="display"
+              axisLine={false}
+              tickLine={false}
               tick={{ fontSize: 9, fontWeight: 700, fill: '#94a3b8' }}
             />
           </BarChart>
