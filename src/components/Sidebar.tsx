@@ -58,7 +58,9 @@ const Sidebar: React.FC = () => {
   ];
 
   const handleNavigation = (item: MenuItem) => {
-    navigate(item.path);
+    if (!item.subItems) {
+      navigate(item.path);
+    }
   };
 
   return (

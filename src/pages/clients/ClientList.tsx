@@ -3,14 +3,10 @@ import { Plus, Search, Filter, Download } from 'lucide-react';
 import { DataGrid, Column } from '../../components/ui/DataGrid';
 import ClientForm from './ClientForm';
 
-// Mock Data
-const clients = [
-    { id: 1, name: 'Tech Solutions LTDA', doc: '12.345.678/0001-90', type: 'Jurídica', city: 'São Paulo/SP', status: 'Ativo' },
-    { id: 2, name: 'João da Silva', doc: '123.456.789-00', type: 'Física', city: 'Rio de Janeiro/RJ', status: 'Inativo' },
-    { id: 3, name: 'Mercado do Bairro', doc: '98.765.432/0001-10', type: 'Jurídica', city: 'Curitiba/PR', status: 'Ativo' },
-];
+import { mockClients } from '../../data/mockData';
 
 const ClientList: React.FC = () => {
+    const [clients] = useState(mockClients);
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [selectedClient, setSelectedClient] = useState<any>(null);
 

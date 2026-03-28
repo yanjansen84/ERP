@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { X, Package, DollarSign, BarChart3, Receipt, Users, Upload, Image as ImageIcon, Search } from 'lucide-react';
 
 interface ProductFormProps {

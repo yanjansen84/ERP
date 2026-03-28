@@ -3,45 +3,7 @@ import { Plus, Search, Filter, Download } from 'lucide-react';
 import { DataGrid } from '../../components/ui/DataGrid';
 import SupplierForm from './SupplierForm';
 
-interface Supplier {
-    id: number;
-    name: string;
-    cnpj: string;
-    category: string;
-    contact: string;
-    email: string;
-    status: 'Ativo' | 'Inativo';
-}
-
-const mockSuppliers: Supplier[] = [
-    {
-        id: 1,
-        name: 'Tech Distribuidora LTDA',
-        cnpj: '12.345.678/0001-90',
-        category: 'Eletrônicos',
-        contact: '(11) 98765-4321',
-        email: 'contato@techdist.com.br',
-        status: 'Ativo'
-    },
-    {
-        id: 2,
-        name: 'Móveis & Cia',
-        cnpj: '98.765.432/0001-10',
-        category: 'Móveis',
-        contact: '(21) 91234-5678',
-        email: 'vendas@moveisecia.com.br',
-        status: 'Ativo'
-    },
-    {
-        id: 3,
-        name: 'Papelaria Central',
-        cnpj: '11.222.333/0001-44',
-        category: 'Papelaria',
-        contact: '(31) 99876-5432',
-        email: 'central@papelaria.com.br',
-        status: 'Inativo'
-    }
-];
+import { mockSuppliers, Supplier } from '../../data/mockData';
 
 export default function SupplierList() {
     const [suppliers] = useState<Supplier[]>(mockSuppliers);

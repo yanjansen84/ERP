@@ -4,69 +4,7 @@ import { Plus, Search, Filter, Download, PackageOpen } from 'lucide-react';
 import { DataGrid } from '../../components/ui/DataGrid';
 import ProductForm from './ProductForm';
 
-interface Product {
-    id: number;
-    name: string;
-    sku: string;
-    category: string;
-    stock: number;
-    minStock: number;
-    costPrice: number;
-    salePrice: number;
-    status: 'Ativo' | 'Inativo';
-    image: string;
-}
-
-const mockProducts: Product[] = [
-    {
-        id: 1,
-        name: 'Cadeira de Escritório Ergonômica',
-        sku: 'MOV-001',
-        category: 'Móveis',
-        stock: 45,
-        minStock: 10,
-        costPrice: 450.00,
-        salePrice: 899.90,
-        status: 'Ativo',
-        image: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&q=80&w=100' // Cadeira
-    },
-    {
-        id: 2,
-        name: 'Monitor LED 27" 4K',
-        sku: 'ELE-055',
-        category: 'Eletrônicos',
-        stock: 5,
-        minStock: 8,
-        costPrice: 1200.00,
-        salePrice: 1899.00,
-        status: 'Ativo',
-        image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&q=80&w=100' // Monitor
-    },
-    {
-        id: 3,
-        name: 'Teclado Mecânico RGB',
-        sku: 'ELE-102',
-        category: 'Eletrônicos',
-        stock: 120,
-        minStock: 20,
-        costPrice: 150.00,
-        salePrice: 349.90,
-        status: 'Ativo',
-        image: 'https://images.unsplash.com/photo-1587829741301-dc798b91add1?auto=format&fit=crop&q=80&w=100' // Teclado
-    },
-    {
-        id: 4,
-        name: 'Mesa de Jantar Madeira Maciça',
-        sku: 'MOV-022',
-        category: 'Móveis',
-        stock: 0,
-        minStock: 2,
-        costPrice: 2500.00,
-        salePrice: 4500.00,
-        status: 'Inativo',
-        image: 'https://images.unsplash.com/photo-1577140917170-285929dfe55c?auto=format&fit=crop&q=80&w=100' // Mesa
-    }
-];
+import { mockProducts, Product } from '../../data/mockData';
 
 export default function Produtos() {
     const [products] = useState<Product[]>(mockProducts);

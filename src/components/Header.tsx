@@ -12,7 +12,7 @@ const Header: React.FC = () => {
         {/* Câmbio */}
         <div className="flex items-center gap-2 text-slate-500">
           <span className="material-icons-round text-lg text-red-400">trending_up</span>
-          <span className="text-xs font-medium">1 USD = 11.194 UZS</span>
+          <span className="text-xs font-medium">1 USD = 5,10 BRL</span>
         </div>
 
         {/* Tempo de Foco */}
@@ -41,7 +41,7 @@ const Header: React.FC = () => {
         {/* Perfil */}
         <div className="flex items-center gap-3">
           <div className="text-right hidden sm:block">
-            <p className="text-xs font-bold text-slate-700">ONGILA OOO</p>
+            <p className="text-xs font-bold text-slate-700">Administrador</p>
           </div>
           <div className="relative">
             <img 

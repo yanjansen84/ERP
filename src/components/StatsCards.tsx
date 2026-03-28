@@ -1,15 +1,10 @@
 
 import React from 'react';
 
+import { dashboardStats } from '../data/mockData';
+
 const StatsCards: React.FC = () => {
-  const stats = [
-    { label: 'A Fazer', value: 31, color: 'bg-slate-300', textColor: 'text-slate-400' },
-    { label: 'Em Andamento', value: 56, color: 'bg-blue-500', textColor: 'text-blue-500' },
-    { label: 'Atrasadas', value: 14, color: 'bg-red-500', textColor: 'text-red-500' },
-    { label: 'Visão Geral', value: 17, color: 'bg-indigo-600', textColor: 'text-indigo-600' },
-    { label: 'Concluídas', value: 28, color: 'bg-emerald-500', textColor: 'text-emerald-500' },
-    { label: 'Total Tarefas', value: 146, color: 'bg-slate-800', textColor: 'text-slate-800' },
-  ];
+  const stats = dashboardStats;
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
