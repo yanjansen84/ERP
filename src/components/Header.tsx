@@ -1,7 +1,9 @@
-
 import React from 'react';
+import { useNotifications } from '../context/NotificationContext';
 
 const Header: React.FC = () => {
+  const { unreadCount } = useNotifications();
+
   return (
     <header className="h-16 bg-white border-b border-slate-50 px-6 flex items-center justify-between flex-shrink-0">
       <div className="flex items-center gap-6">
@@ -25,7 +27,11 @@ const Header: React.FC = () => {
         <div className="flex items-center gap-1">
           <button className="p-2 text-slate-400 hover:bg-slate-50 rounded-full relative">
             <span className="material-icons-round">notifications_none</span>
-            <span className="absolute top-2 right-2 w-4 h-4 bg-red-500 text-[9px] text-white flex items-center justify-center rounded-full border-2 border-white font-bold">12</span>
+            {unreadCount > 0 && (
+              <span className="absolute top-2 right-2 w-4 h-4 bg-red-500 text-[9px] text-white flex items-center justify-center rounded-full border-2 border-white font-bold animate-pulse">
+                {unreadCount}
+              </span>
+            )}
           </button>
           <button className="p-2 text-slate-400 hover:bg-slate-50 rounded-full relative">
             <span className="material-icons-round">mail_outline</span>

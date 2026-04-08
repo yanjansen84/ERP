@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Save, X, Search, Plus, Trash2, User, ShoppingBag, FileText, ShoppingCart } from 'lucide-react';
+import { Save, X, Search, Plus, Trash2, User, ShoppingBag, FileText, ShoppingCart, Lock } from 'lucide-react';
 import { mockClients, mockProducts, mockQuotes, mockOrders, Product, Client, OrderItem, Quote, Order } from '../../../data/mockData';
+import { useNotifications } from '../../../context/NotificationContext';
 
 interface OrderFormProps {
     type: 'orcamento' | 'pedido';
@@ -22,6 +23,10 @@ const OrderForm: React.FC<OrderFormProps> = ({ type, isOpen, onClose, id }) => {
     const [priceTable, setPriceTable] = useState('Padrão');
     const [isApproved, setIsApproved] = useState(false);
     const [showApprovalModal, setShowApprovalModal] = useState(false);
+    const [managerPassword, setManagerPassword] = useState('');
+    const [isRequesting, setIsRequesting] = useState(false);
+
+    const { addNotification } = useNotifications();
 
     // Reiniciar estados ao fechar/abrir
     useEffect(() => {
@@ -33,6 +38,8 @@ const OrderForm: React.FC<OrderFormProps> = ({ type, isOpen, onClose, id }) => {
             setPriceTable('Padrão');
             setIsApproved(false);
             setShowApprovalModal(false);
+            setManagerPassword('');
+            setIsRequesting(false);
         }
     }, [isOpen]);
 
@@ -128,6 +135,44 @@ const OrderForm: React.FC<OrderFormProps> = ({ type, isOpen, onClose, id }) => {
         setItems(items.filter(i => i.id !== id));
     };
 
+    const handleApprovalAction = () => {
+        setIsRequesting(true);
+        
+        // Se houver senha, tenta autorizar localmente (Aprovar)
+        if (managerPassword.length > 0) {
+            setTimeout(() => {
+                // Mock: Senha correta é '1234'
+                if (managerPassword === '1234') {
+                    setIsApproved(true);
+                    setManagerPassword('');
+                    setShowApprovalModal(false);
+                } else {
+                    alert('Senha do gestor inválida!');
+                }
+                setIsRequesting(false);
+            }, 600);
+            return;
+        }
+
+        // Se não houver senha, envia solicitação remota (Solicitar)
+        setTimeout(() => {
+            addNotification({
+              title: 'Solicitação de Desconto',
+              message: `Vendedor solicitou autorização para ${type === 'orcamento' ? 'orçamento' : 'pedido'} de ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(finalTotal)}.`,
+              type: 'manager_alert'
+            });
+            
+            setIsRequesting(false);
+            setManagerPassword('');
+            setShowApprovalModal(false);
+            
+            // Simulação: Auto-aprovação após 10 segundos (remoto)
+            setTimeout(() => {
+                setIsApproved(true);
+            }, 10000);
+        }, 800);
+    };
+
     const filteredClients = mockClients.filter(c => 
         c.name.toLowerCase().includes(clientSearch.toLowerCase()) || 
         c.doc.includes(clientSearch)
@@ -145,7 +190,6 @@ const OrderForm: React.FC<OrderFormProps> = ({ type, isOpen, onClose, id }) => {
             {/* Backdrop */}
             <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm shadow-2xl" onClick={onClose} />
             
-            {/* Modal Content */}
             {/* Modal Content */}
             <div className="relative bg-slate-50 w-[98%] md:w-[95%] h-[96%] rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-4 duration-300 ring-1 ring-white/50">
                 
@@ -505,13 +549,19 @@ const OrderForm: React.FC<OrderFormProps> = ({ type, isOpen, onClose, id }) => {
                             <p className="text-slate-500 text-sm font-medium mb-8">Este {type} contém itens com preços abaixo da tabela e requer aprovação de um gerente para ser finalizado.</p>
                             
                             <div className="w-full space-y-3 mb-8">
-                                <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl flex justify-between items-center">
-                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Desconto Total</span>
-                                    <span className="text-red-500 font-black tracking-tight">-{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalDiscounts)}</span>
+                                <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl flex justify-between items-center text-left">
+                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Desconto Requerido</span>
+                                    <span className="text-red-500 font-black tracking-tight leading-none">-{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalDiscounts)}</span>
                                 </div>
-                                <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl flex justify-between items-center font-black">
-                                    <span className="text-[10px] text-slate-400 uppercase tracking-widest">Margem de Negócio</span>
-                                    <span className="text-emerald-500 text-sm italic">{Math.round(((finalTotal / grossTotal) - 1) * -100)}% Reduzido</span>
+                                <div className="relative group/pass">
+                                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within/pass:text-blue-500 transition-colors" size={18} />
+                                    <input 
+                                        type="password"
+                                        placeholder="Senha do Gestor"
+                                        value={managerPassword}
+                                        onChange={(e) => setManagerPassword(e.target.value)}
+                                        className="w-full pl-12 pr-5 py-5 bg-slate-50 border border-slate-100 rounded-2xl text-sm font-black outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-blue-400 transition-all shadow-inner placeholder:text-slate-300"
+                                    />
                                 </div>
                             </div>
 
@@ -520,17 +570,23 @@ const OrderForm: React.FC<OrderFormProps> = ({ type, isOpen, onClose, id }) => {
                                     onClick={() => setShowApprovalModal(false)}
                                     className="px-6 py-4 rounded-2xl text-xs font-black uppercase tracking-widest border border-slate-200 text-slate-400 hover:bg-slate-50 transition-all font-black text-center"
                                 >
-                                    Voltar
+                                    Cancelar
                                 </button>
                                 <button 
-                                    onClick={() => {
-                                        setIsApproved(true);
-                                        setShowApprovalModal(false);
-                                    }}
-                                    className="px-6 py-4 rounded-2xl text-xs font-black uppercase tracking-widest bg-emerald-600 text-white shadow-xl shadow-emerald-200 hover:bg-emerald-700 transition-all font-black text-center"
-                                >
-                                    Autorizar
-                                </button>
+                                     onClick={handleApprovalAction}
+                                     disabled={isRequesting}
+                                     className={`px-6 py-4 rounded-2xl text-xs font-black uppercase tracking-widest shadow-xl transition-all font-black text-center ${
+                                        isRequesting
+                                        ? 'bg-slate-100 text-slate-300 shadow-none cursor-not-allowed'
+                                        : managerPassword.length > 0
+                                            ? 'bg-emerald-600 text-white shadow-emerald-200 hover:bg-emerald-700 active:scale-95'
+                                            : 'bg-indigo-600 text-white shadow-indigo-200 hover:bg-indigo-700 active:scale-95'
+                                     }`}
+                                 >
+                                     {isRequesting 
+                                        ? 'Aguarde...' 
+                                        : managerPassword.length > 0 ? 'Aprovar' : 'Solicitar'}
+                                 </button>
                             </div>
                         </div>
                     </div>

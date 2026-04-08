@@ -11,6 +11,7 @@ import TaskDiagram from './components/TaskDiagram';
 import TaskFolders from './components/TaskFolders';
 import MonthlyProductivity from './components/MonthlyProductivity';
 import { TabsProvider } from './context/TabsContext';
+import { NotificationProvider } from './context/NotificationContext';
 import TabNavigation from './components/TabNavigation';
 
 // Componente para a Dashboard (Conteúdo atual)
@@ -94,54 +95,56 @@ import Relatorios from './pages/relatorios/Relatorios';
 const App: React.FC = () => {
   return (
     <Router>
-      <TabsProvider>
-        <div className="flex h-screen overflow-hidden bg-[#F9FAFB]">
-          <Sidebar />
+      <NotificationProvider>
+        <TabsProvider>
+          <div className="flex h-screen overflow-hidden bg-[#F9FAFB]">
+            <Sidebar />
 
-          <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
-            <Header />
-            <TabNavigation />
+            <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
+              <Header />
+              <TabNavigation />
 
-            <div className="flex-1 overflow-y-auto">
-              <Routes>
-                <Route path="/" element={<Navigate to="/dashboard" replace />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+              <div className="flex-1 overflow-y-auto">
+                <Routes>
+                  <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
 
-                {/* PDV */}
-                <Route path="/pdv/orcamento" element={<Orcamento />} />
-                <Route path="/pdv/pedido" element={<Pedido />} />
-                <Route path="/settings" element={<div className="p-8">Configurações</div>} />
+                  {/* PDV */}
+                  <Route path="/pdv/orcamento" element={<Orcamento />} />
+                  <Route path="/pdv/pedido" element={<Pedido />} />
+                  <Route path="/settings" element={<div className="p-8">Configurações</div>} />
 
-                {/* Cadastros */}
-                <Route path="/cadastros/clientes" element={<ClientList />} />
-                <Route path="/cadastros/fornecedores" element={<SupplierList />} />
-                <Route path="/cadastros/transportadora" element={<TransportadoraList />} />
-                <Route path="/cadastros/marcas" element={<Marcas />} />
-                <Route path="/cadastros/grupos" element={<Grupos />} />
-                <Route path="/cadastros/subgrupo" element={<Subgrupo />} />
-                <Route path="/cadastros" element={<Cadastros />} />
+                  {/* Cadastros */}
+                  <Route path="/cadastros/clientes" element={<ClientList />} />
+                  <Route path="/cadastros/fornecedores" element={<SupplierList />} />
+                  <Route path="/cadastros/transportadora" element={<TransportadoraList />} />
+                  <Route path="/cadastros/marcas" element={<Marcas />} />
+                  <Route path="/cadastros/grupos" element={<Grupos />} />
+                  <Route path="/cadastros/subgrupo" element={<Subgrupo />} />
+                  <Route path="/cadastros" element={<Cadastros />} />
 
-                {/* Estoque */}
-                <Route path="/estoque/produtos" element={<Produtos />} />
-                <Route path="/estoque/pedido-ao-fornecedor" element={<PedidoFornecedorList />} />
-                <Route path="/estoque/ressuprimento" element={<Ressuprimento />} />
-                <Route path="/estoque/entrada-de-nf" element={<EntradaNF />} />
-                <Route path="/estoque/devolucao-de-pedido" element={<DevolucaoPedido />} />
-                <Route path="/estoque/ajuste-de-estoque" element={<AjusteEstoque />} />
+                  {/* Estoque */}
+                  <Route path="/estoque/produtos" element={<Produtos />} />
+                  <Route path="/estoque/pedido-ao-fornecedor" element={<PedidoFornecedorList />} />
+                  <Route path="/estoque/ressuprimento" element={<Ressuprimento />} />
+                  <Route path="/estoque/entrada-de-nf" element={<EntradaNF />} />
+                  <Route path="/estoque/devolucao-de-pedido" element={<DevolucaoPedido />} />
+                  <Route path="/estoque/ajuste-de-estoque" element={<AjusteEstoque />} />
 
-                {/* Financeiro */}
-                <Route path="/financeiro" element={<Financeiro />} />
+                  {/* Financeiro */}
+                  <Route path="/financeiro" element={<Financeiro />} />
 
-                {/* Fiscal */}
-                <Route path="/fiscal" element={<Fiscal />} />
+                  {/* Fiscal */}
+                  <Route path="/fiscal" element={<Fiscal />} />
 
-                {/* Relatórios */}
-                <Route path="/relatorios" element={<Relatorios />} />
-              </Routes>
-            </div>
-          </main>
-        </div>
-      </TabsProvider>
+                  {/* Relatórios */}
+                  <Route path="/relatorios" element={<Relatorios />} />
+                </Routes>
+              </div>
+            </main>
+          </div>
+        </TabsProvider>
+      </NotificationProvider>
     </Router>
   );
 };
